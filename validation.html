@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System Validation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .metric-card { transition: transform 0.2s; }
+        .metric-card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body>
+    <div class="container mt-4 mb-5">
+        <a href="/" class="btn btn-secondary mb-3">&larr; Back</a>
+        <h1 class="mb-2">Gold Standard Validation</h1>
+        <p class="text-muted mb-4">Comprehensive performance evaluation against human-labeled ground truth.</p>
+
+        {% if metrics.consistency is not none %}
+        <div class="alert alert-info mb-4">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <h4 class="alert-heading mb-0">🔁 Repeatability Test (Dual Run)</h4>
+                    <p class="mb-0">Consistency between two independent runs: <strong>{{ metrics.consistency }}%</strong></p>
+                </div>
+                <div class="fs-1">
+                    {% if metrics.consistency > 90 %}✅{% else %}⚠️{% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <h4 class="mb-3">Global Performance</h4>
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card metric-card text-center text-white bg-primary mb-3">
+                    <div class="card-header">Accuracy</div>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ metrics.accuracy }}%</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card metric-card text-center text-white bg-success mb-3">
+                    <div class="card-header">Precision (Weighted)</div>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ metrics.precision }}%</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card metric-card text-center text-white bg-warning text-dark mb-3">
+                    <div class="card-header">Recall (Weighted)</div>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ metrics.recall }}%</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card metric-card text-center text-white bg-info mb-3">
+                    <div class="card-header">F1 Score</div>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ metrics.f1 }}%</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                <h4 class="mb-3">Aspect-Level Agreement</h4>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Aspect Category</th>
+                                    <th>Precision</th>
+                                    <th>Recall</th>
+                                    <th>F1-Score</th>
+                                    <th>Support</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for aspect, scores in metrics.aspect_breakdown.items() %}
+                                <tr>
+                                    <td class="fw-bold">{{ aspect }}</td>
+                                    <td>{{ "%.2f"|format(scores.precision * 100) }}%</td>
+                                    <td>{{ "%.2f"|format(scores.recall * 100) }}%</td>
+                                    <td>{{ "%.2f"|format(scores['f1-score'] * 100) }}%</td>
+                                    <td>{{ scores.support }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <h4 class="mb-3">🧪 Edge-Case Probes</h4>
+                <div class="card mb-4 border-warning">
+                    <div class="card-header bg-warning text-dark">
+                        <strong>Performance on Tricky Inputs</strong>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Case Type</th>
+                                    <th>Count</th>
+                                    <th>Accuracy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in metrics.edge_case_stats %}
+                                <tr>
+                                    <td>
+                                        {% if item.type == 'Negation' %}🚫 Negation
+                                        {% elif item.type == 'Mixed/Contrast' %}🔀 Mixed
+                                        {% elif item.type == 'Long Text' %}📜 Long Text
+                                        {% else %}🟢 Simple{% endif %}
+                                    </td>
+                                    <td>{{ item.total }}</td>
+                                    <td>
+                                        <span class="badge {{ 'bg-success' if item.accuracy > 90 else 'bg-danger' }}">
+                                            {{ item.accuracy }}%
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="card-footer text-muted small">
+                            * Auto-detected based on linguistic patterns (e.g., "but", "not").
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="mb-3">Detailed Prediction Log</h4>
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Review Snippet</th>
+                            <th>Tags</th> <th>Human Label</th>
+                            <th>AI Prediction</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in metrics.details %}
+                        <tr class="{{ 'table-success' if 'Match' in row.status else 'table-danger' }}">
+                            <td><small>{{ row.text }}</small></td>
+                            <td><span class="badge bg-secondary">{{ row.tags }}</span></td>
+                            <td>{{ row.true }}</td>
+                            <td>{{ row.pred }}</td>
+                            <td><strong>{{ row.status }}</strong></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

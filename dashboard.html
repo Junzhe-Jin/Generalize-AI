@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .summary-box { background: #e3f2fd; padding: 20px; border-radius: 8px; border-left: 5px solid #2196f3; }
+        .table-container { overflow-x: auto; font-size: 0.9em; }
+        .export-bar { background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #dee2e6; }
+    </style>
+</head>
+<body>
+    <div class="container mt-4 mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Analysis Results</h1>
+            <a href="/" class="btn btn-outline-secondary">&larr; Start New Analysis</a>
+        </div>
+
+        {% if consistency is not none %}
+        <div class="alert {{ 'alert-success' if consistency > 90 else 'alert-warning' }} mb-4">
+            <h4>🛡️ Stability Check Result</h4>
+            <p class="mb-0">
+                Consistency Score: <strong>{{ "%.2f"|format(consistency) }}%</strong>. 
+                <br><small>This confirms the reliability of the AI's judgment on this specific dataset.</small>
+            </p>
+        </div>
+        {% endif %}
+
+        <div class="export-bar d-flex align-items-center justify-content-between">
+            <div>
+                <h5 class="mb-1">📂 Export Actions</h5>
+                <small class="text-muted">Download results for offline use.</small>
+            </div>
+            <div>
+                <a href="/download_data" class="btn btn-success me-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-spreadsheet" viewBox="0 0 16 16">
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                        <path d="M3 12l9-9m-9 9l9-9"/>
+                    </svg>
+                    Download Data (.xlsx)
+                </a>
+                
+                <a href="/download_report" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-word" viewBox="0 0 16 16">
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                    </svg>
+                    Download Report (.docx)
+                </a>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">AI Strategic Summary</div>
+            <div class="card-body">
+                <div class="summary-box">
+                    {{ summary | safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Sentiment Distribution by Aspect</div>
+                    <div class="card-body">
+                        {{ stats_table | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Processed Review Details</div>
+            <div class="card-body table-container">
+                {% for table in tables %}
+                    {{ table | safe }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

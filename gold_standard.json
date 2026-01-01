@@ -1,0 +1,182 @@
+[
+  {
+    "review_id": "g01",
+    "text": "The product quality is excellent and feels very durable.",
+    "label_aspect": "product_quality",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g02",
+    "text": "The material feels cheap and broke after a few uses.",
+    "label_aspect": "product_quality",
+    "label_sentiment": "negative"
+  },
+  {
+    "review_id": "g03",
+    "text": "Overall the quality is okay, nothing special.",
+    "label_aspect": "product_quality",
+    "label_sentiment": "neutral"
+  },
+  {
+    "review_id": "g04",
+    "text": "The product works well but the quality does not justify the high price.",
+    "label_aspect": "price_value",
+    "label_sentiment": "negative"
+  },
+  {
+    "review_id": "g05",
+    "text": "It is very easy to use and the interface is intuitive.",
+    "label_aspect": "usability",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g06",
+    "text": "I struggled to figure out how to use it without reading the manual.",
+    "label_aspect": "usability",
+    "label_sentiment": "negative"
+  },
+  {
+    "review_id": "g07",
+    "text": "The usability is acceptable, but it could be more intuitive.",
+    "label_aspect": "usability",
+    "label_sentiment": "neutral"
+  },
+  {
+    "review_id": "g08",
+    "text": "Shipping was fast and the package arrived earlier than expected.",
+    "label_aspect": "delivery_shipping",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g09",
+    "text": "The delivery was delayed by more than a week.",
+    "label_aspect": "delivery_shipping",
+    "label_sentiment": "negative"
+  },
+  {
+    "review_id": "g10",
+    "text": "The product arrived on time, nothing noteworthy about the delivery.",
+    "label_aspect": "delivery_shipping",
+    "label_sentiment": "neutral"
+  },
+  {
+    "review_id": "g11",
+    "text": "Customer service was very helpful and resolved my issue quickly.",
+    "label_aspect": "service",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g12",
+    "text": "I contacted support but never received a response.",
+    "label_aspect": "service",
+    "label_sentiment": "negative"
+  },
+  {
+    "review_id": "g13",
+    "text": "The service experience was average, nothing stood out.",
+    "label_aspect": "service",
+    "label_sentiment": "neutral"
+  },
+  {
+    "review_id": "g14",
+    "text": "The price is reasonable for the features offered.",
+    "label_aspect": "price_value",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g15",
+    "text": "The product is overpriced for what it does.",
+    "label_aspect": "price_value",
+    "label_sentiment": "negative"
+  },
+  {
+    "review_id": "g16",
+    "text": "The price seems fair, but discounts would make it more attractive.",
+    "label_aspect": "price_value",
+    "label_sentiment": "neutral"
+  },
+  {
+    "review_id": "g17",
+    "text": "I like the design, but using the product feels confusing at times.",
+    "label_aspect": "usability",
+    "label_sentiment": "mixed"
+  },
+  {
+    "review_id": "g18",
+    "text": "The product looks good, but the build quality could be better.",
+    "label_aspect": "product_quality",
+    "label_sentiment": "mixed"
+  },
+  {
+    "review_id": "g19",
+    "text": "Delivery was quick, but the package was damaged.",
+    "label_aspect": "delivery_shipping",
+    "label_sentiment": "mixed"
+  },
+  {
+    "review_id": "g20",
+    "text": "Support was polite, but the solution they offered did not help.",
+    "label_aspect": "service",
+    "label_sentiment": "mixed"
+  },
+  {
+    "review_id": "g21",
+    "text": "The setup process was straightforward and user-friendly.",
+    "label_aspect": "usability",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g22",
+    "text": "It takes too many steps to complete simple tasks.",
+    "label_aspect": "usability",
+    "label_sentiment": "negative"
+  },
+  {
+    "review_id": "g23",
+    "text": "The product arrived much later than promised.",
+    "label_aspect": "delivery_shipping",
+    "label_sentiment": "negative"
+  },
+  {
+    "review_id": "g24",
+    "text": "The packaging was fine and the delivery met expectations.",
+    "label_aspect": "delivery_shipping",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g25",
+    "text": "Customer service answered my questions clearly.",
+    "label_aspect": "service",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g26",
+    "text": "The response from support was slow and unhelpful.",
+    "label_aspect": "service",
+    "label_sentiment": "negative"
+  },
+  {
+    "review_id": "g27",
+    "text": "The price is high, but the quality is excellent.",
+    "label_aspect": "price_value",
+    "label_sentiment": "mixed"
+  },
+  {
+    "review_id": "g28",
+    "text": "I feel the quality matches the price.",
+    "label_aspect": "price_value",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g29",
+    "text": "The product feels sturdy and well-made.",
+    "label_aspect": "product_quality",
+    "label_sentiment": "positive"
+  },
+  {
+    "review_id": "g30",
+    "text": "The overall experience was fine, but nothing impressed me.",
+    "label_aspect": "service",
+    "label_sentiment": "neutral"
+  }
+]
